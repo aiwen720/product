@@ -111,7 +111,7 @@
 						<td>${res.data[i].name}</td>
 						<td>${res.data[i].price}</td>
 						<td>
-							<button class="btn delBtn">删除</button>
+							<button class="btn delBtn" data-id=${res.data[i].id}>删除</button>
 						</td>
 						<td>
 							<button class="btn">
@@ -122,14 +122,15 @@
                 `
                 }
                 tbody.innerHTML = str;
+                $(".delBtn").click(function() {
+                    let id = $(this).attr("data-id");
+                    axios.delete("http://localhost:3000/products/" + id, {
+                    });
+                })
             });
             $("#wq-save-question").click(() => {
-                /* let files = document.getElementById('wq-content').files[0];
-                let formData = new FormData()
-                formData.append('file', files);
-                let headers = {headers: {"Content-Type": "multipart/form-data"}} */
                 axios.post("  http://localhost:3000/products", {
-                    imgsrc: "img/"+$("#wq-content").val()+".jpg",
+                    imgsrc: "img/" + $("#wq-content").val() + ".jpg",
                     name: $("#wq-where").val(),
                     price: $("#wq-idea").val()
                 }).then(res => {
@@ -138,8 +139,7 @@
                 }).catch(err => {
                     console.log(err);
                 });
-               // console.log(imgsrc);
-            })
+            });
         })
     </script>
 </body>
